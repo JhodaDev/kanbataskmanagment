@@ -1,0 +1,255 @@
+@use "helpers/normalize";
+@use "helpers/variables";
+@use "helpers/iconfont";
+@use "helpers/globals";
+@use "utilities/spaces.scss";
+@use "utilities/mixins.scss";
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&display=swap");
+
+.leftbar {
+  height: 100vh;
+  padding: 30px;
+  background-color: variables.$white;
+  transition: all 0.3s ease-in-out;
+  border-right: 1px solid variables.$light-grey;
+
+  &__option {
+    position: relative;
+    font-size: variables.$fz-m;
+    padding: 14px 0;
+    color: variables.$medium-gray;
+    font-weight: bold;
+    cursor: pointer;
+
+    &--active {
+      color: variables.$white;
+      &::after {
+        content: "";
+        position: absolute;
+        background-color: variables.$main-purple;
+        border-radius: 30px;
+        width: 100%;
+        height: 100%;
+        left: -50px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    // agregar hover menos a las clase que tenga la clase --action y que no tenga la clase --active
+
+    &:not(.leftbar__option--action):not(.leftbar__option--active):hover {
+      &:hover {
+        color: variables.$white;
+        &::after {
+          content: "";
+          position: absolute;
+          background-color: variables.$light-purple;
+          border-radius: 30px;
+          width: 100%;
+          height: 100%;
+          left: -50px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
+
+    &--action {
+      color: variables.$main-purple;
+    }
+
+    &-content {
+      position: relative;
+      z-index: 9;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+
+  &__content {
+    height: calc(100% - 3rem - 30px);
+    @include mixins.flexbox(column, space-between);
+  }
+
+  .btn {
+    @include mixins.flexbox(row, initial, center, 10px);
+    color: variables.$medium-gray;
+    font-size: variables.$fz-m;
+  }
+}
+
+.toggle {
+  @include mixins.flexbox(row, center, center, 20px);
+  background-color: variables.$light-grey;
+  padding: 15px 20px;
+  border-radius: 10px;
+
+  &__switch {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    background-color: variables.$main-purple;
+    border-radius: 30px;
+    cursor: pointer;
+
+    &__ball {
+      position: absolute;
+      background-color: variables.$white;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      left: 2px;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: all 0.3s ease;
+    }
+  }
+}
+
+.topbar {
+  padding: 30px 20px;
+  background-color: variables.$white;
+  @include mixins.flexbox(row, space-between, center, 20px);
+
+  &__container {
+    @include mixins.flexbox(row, center, center, 20px);
+  }
+}
+
+.btn-float {
+  position: absolute;
+  bottom: 30px;
+  left: -300px;
+  background-color: variables.$main-purple;
+  color: variables.$white;
+  padding: 12px 15px;
+  border-radius: 0 30px 30px 0;
+  font-size: variables.$fz-m;
+  cursor: pointer;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+
+  &__content {
+    flex: 1;
+    padding: 40px;
+  }
+
+  &__empty {
+    height: 100%;
+    width: 100%;
+    @include mixins.flexbox(column, center, center);
+
+    p {
+      font-size: variables.$fz-l;
+      color: variables.$medium-gray;
+    }
+  }
+
+  &__columns {
+    display: flex;
+    gap: 20px;
+    height: 100%;
+  }
+
+  .column {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+
+    &--action {
+      border: none;
+      background: linear-gradient(
+        180deg,
+        #e9effa 0%,
+        rgba(233, 239, 250, 0.5) 100%
+      );
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: variables.$fz-xl;
+      color: variables.$medium-gray;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+
+    &__content {
+      border: 2px dashed rgba(130, 143, 163, 0.4);
+      flex: 1;
+      border-radius: 10px;
+    }
+
+    &__name {
+      @include mixins.flexbox(row, initial, center, 10px);
+      font-size: variables.$fz-s;
+      color: variables.$medium-gray;
+      font-weight: bold;
+    }
+
+    &__point{
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background-color: variables.$main-purple;
+    }
+  }
+}
+
+.modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  @include mixins.flexbox(column, center, center);
+  opacity: 0;
+
+  &__content {
+    background-color: variables.$white;
+    padding: 30px;
+    border-radius: 10px;
+    min-width: 500px;
+
+    h3 {
+      font-size: variables.$fz-l;
+      color: variables.$black;
+    }
+
+    label {
+      font-size: variables.$fz-m;
+      color: variables.$medium-gray;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      margin-top: 8px;
+      background-color: transparent;
+      border: 1px solid rgba(130, 143, 163, 0.25);
+      padding: 8px 10px;
+      font-size: variables.$fz-m;
+      border-radius: 5px;
+
+      &:focus {
+        outline: none;
+        border: 1px solid variables.$main-purple;
+      }
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .input-column {
+      @include mixins.flexbox(row, space-between, center, 20px);
+    }
+  }
+}

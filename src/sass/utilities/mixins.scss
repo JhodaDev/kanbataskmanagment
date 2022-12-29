@@ -1,0 +1,18 @@
+// crear un mixin para el flexbox teniendo en cuenta que pueda que no venga alguno de los parametros
+
+@mixin flexbox($direction: row, $justify: initial, $align: initial, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+
+  @if $justify != initial {
+    justify-content: $justify;
+  }
+
+  @if $gap > 0 {
+    gap: $gap;
+  }
+
+  @if $align != initial {
+    align-items: $align;
+  }
+}

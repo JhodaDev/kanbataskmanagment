@@ -1,0 +1,149 @@
+@use "variables";
+
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+h1 {
+  font-size: variables.$fz-xl;
+}
+
+h3 {
+  font-size: variables.$fz-s;
+  color: variables.$medium-gray;
+}
+
+body {
+  background-color: variables.$light-grey;
+  font-family: variables.$font-family;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.w-full{
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+}
+
+.btn-primary {
+  background-color: variables.$main-purple;
+  color: variables.$white;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-size: variables.$fz-m;
+  font-weight: bold;
+}
+
+.btn-secondary {
+  background-color: rgba(99, 95, 199, 0.1);
+  color: variables.$main-purple;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-size: variables.$fz-m;
+  font-weight: bold;
+}
+
+.leftbar--hide {
+  animation: leftbar-hide 0.5s forwards;
+}
+
+@keyframes leftbar-hide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-280px);
+  }
+}
+
+.leftbar--show {
+  animation: leftbar-show 0.5s forwards;
+}
+
+@keyframes leftbar-show {
+  0% {
+    transform: translateX(-280px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.grid--expand {
+  animation: grid-expand 0.5s forwards;
+}
+
+@keyframes grid-expand {
+  0% {
+    grid-template-columns: 280px 1fr;
+  }
+  100% {
+    grid-template-columns: 0 1fr;
+  }
+}
+
+.grid--reduce {
+  animation: grid-reduce 0.5s forwards;
+}
+
+@keyframes grid-reduce {
+  0% {
+    grid-template-columns: 0 1fr;
+  }
+  100% {
+    grid-template-columns: 280px 1fr;
+  }
+}
+
+.btn-float--show {
+  animation: btn-float-show 0.5s forwards;
+}
+
+@keyframes btn-float-show {
+  0% {
+    left: -100px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+
+.btn-float--hide {
+  animation: btn-float-hide 0.5s forwards;
+}
+
+@keyframes btn-float-hide {
+  0% {
+    left: 0px;
+  }
+  100% {
+    left: -100px;
+  }
+}
+
+.modal--show {
+  animation: modal-show 0.5s forwards;
+}
+
+@keyframes modal-show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
