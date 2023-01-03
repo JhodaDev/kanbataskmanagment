@@ -1,13 +1,12 @@
 // import { Board } from './components/Boards/Board.jsx'
 import { EmptyBoard } from './components/Boards/EmptyBoard.jsx'
 import { LeftBar } from './components/LeftBar/LeftBar'
+import { EditBoard } from './components/Modals/EditBoard/EditBoard.jsx'
 import { TopBar } from './components/TopBar/TopBar'
-import { ModalContext } from './context/ModalContext.js'
-import { useModal } from './hooks/useModal.js'
-import { EditBoard } from './components/Modals/EditBoard/EditBoard'
+import useStore from './store/store.js'
 
 function App () {
-  const [show, toggle, handleClick] = useModal(false, 'edit-board')
+  const activeModal = useStore((state) => state.modal.active)
 
   return (
     <>
@@ -16,20 +15,11 @@ function App () {
         <div className="panel">
           <TopBar />
           <div className="panel__content">
-            <ModalContext.Provider
-              value={{
-                show,
-                toggle,
-                handleClick
-              }}
-            >
-              <EmptyBoard />
-              {/* <Board /> */}
-              {show && <EditBoard />}
-            </ModalContext.Provider>
+            <EmptyBoard />
           </div>
         </div>
       </div>
+      {activeModal === 'edit-board' && <EditBoard />}
     </>
   )
 }

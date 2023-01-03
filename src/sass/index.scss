@@ -192,7 +192,7 @@
       font-weight: bold;
     }
 
-    &__point{
+    &__point {
       width: 13px;
       height: 13px;
       border-radius: 50%;
@@ -244,8 +244,15 @@
       }
     }
 
+    .error {
+      color: variables.$error;
+      font-size: variables.$fz-s;
+      margin-top: 4px;
+    }
+
     .form-group {
       margin-bottom: 20px;
+      position: relative;
     }
 
     .input-column {

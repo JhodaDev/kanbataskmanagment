@@ -9,8 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "formik": "^2.2.9",
+    "install": "^0.13.0",
+    "npm": "^9.2.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "yup": "^0.32.11",
+    "zustand": "^4.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",

@@ -1,23 +1,23 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import useStore from '../store/store'
 
-export const useModal = (isShow, idModal) => {
-  const [show, setShow] = useState(isShow)
+export const useModal = () => {
+  const modal = useStore((state) => state.modal)
 
-  const toggle = () => setShow(!show)
+  const handleToggle = (e, idModal) => modal.toggle(idModal)
 
-  const handleClick = (e) => {
-    if (e.target.classList.contains('modal')) {
-      e.target.classList.remove('modal--show')
-      setShow(false)
+  const handleOutsideClick = (e) => {
+    if (e.target.id === modal.active) {
+      modal.toggle()
     }
   }
 
   useEffect(() => {
-    if (show) {
-      const modal = document.querySelector(`#${idModal}`)
-      modal.classList.add('modal--show')
+    if (modal?.show) {
+      const el = document.getElementById(modal.active)
+      el?.classList.add('modal--show')
     }
-  }, [show])
+  }, [modal.show])
 
-  return [show, toggle, handleClick]
+  return { active: modal.show, handleToggle, handleOutsideClick }
 }

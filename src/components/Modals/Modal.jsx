@@ -1,15 +1,13 @@
-import { useContext } from 'react'
 import { createPortal } from 'react-dom'
-import { ModalContext } from '../../context/ModalContext'
+import { useModal } from '../../hooks/useModal'
 
 export const Modal = ({ children, id }) => {
-  // si le dan click afuera del modal, se cierra
-  const { handleClick } = useContext(ModalContext)
+  const { handleOutsideClick } = useModal()
 
   return (
     <>
       {createPortal(
-        <div className="modal" onClick={handleClick} id={id}>
+        <div className="modal" onClick={handleOutsideClick} id={id}>
           {children}
         </div>,
         document.getElementById('modal-root')

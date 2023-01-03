@@ -1,16 +1,30 @@
 import { useState } from 'react'
 
-export const useForm = (initialState) => {
-  const [form, setForm] = useState(initialState)
+export const useForm = (config) => {
+  const [form, setForm] = useState(config.initialState)
 
-  const onHandleChange = (e) => {
-    const { name, value } = e.target
-    setForm({ ...form, [name]: value })
+  return {
+    handleFormChange: (e) => {
+      const { name, value } = e.target
+      setForm({ ...form, [name]: value })
+    },
+    resetForm: () => setForm(config.initialState),
+    handleSubmit: config.handleSubmit
   }
+  // const [form, setForm] = useState(initialState)
 
-  const resetForm = () => {
-    setForm(initialState)
-  }
+  // const handleFormChange = (e) => {
+  //   const { name, value } = e.target
+  //   setForm({ ...form, [name]: value })
+  // }
 
-  return { form, onHandleChange, resetForm }
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  // }
+
+  // const resetForm = () => {
+  //   setForm(initialState)
+  // }
+
+  // return { form, handleFormChange, resetForm }
 }
