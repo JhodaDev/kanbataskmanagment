@@ -1,4 +1,5 @@
 // import { Board } from './components/Boards/Board.jsx'
+import { useEffect } from 'react'
 import { EmptyBoard } from './components/Boards/EmptyBoard.jsx'
 import { LeftBar } from './components/LeftBar/LeftBar'
 import { EditBoard } from './components/Modals/EditBoard/EditBoard.jsx'
@@ -6,7 +7,20 @@ import { TopBar } from './components/TopBar/TopBar'
 import useStore from './store/store.js'
 
 function App () {
-  const activeModal = useStore((state) => state.modal.active)
+  const { modal, board } = useStore((state) => state)
+
+  useEffect(() => {
+    const dataBoard = JSON.parse(localStorage.getItem('boards'))
+    const isEqual = JSON.stringify(dataBoard) === JSON.stringify(board.data)
+    if (!isEqual) {
+      if (dataBoard && dataBoard.length >= 1) {
+        const { name, ...restObject } = dataBoard.find((item) => item.name === dataBoard[0].name)
+        const dataActive = { id: name, data: restObject.columns }
+        board.setBoard(dataBoard, dataActive)
+      }
+    }
+    // if (dataBoard.length >= 0) board.setActive(dataBoard[0].name)
+  }, [board.data])
 
   return (
     <>
@@ -19,7 +33,7 @@ function App () {
           </div>
         </div>
       </div>
-      {activeModal === 'edit-board' && <EditBoard />}
+      {modal.active === 'edit-board' && <EditBoard />}
     </>
   )
 }
