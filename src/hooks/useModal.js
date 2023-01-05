@@ -4,7 +4,7 @@ import useStore from '../store/store'
 export const useModal = () => {
   const modal = useStore((state) => state.modal)
 
-  const handleToggle = (e, idModal) => modal.toggle(idModal)
+  const handleToggle = (idModal) => modal.toggle(idModal)
 
   const handleOutsideClick = (e) => {
     if (e.target.id === modal.active) {
