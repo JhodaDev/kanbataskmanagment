@@ -248,6 +248,18 @@
       color: variables.$error;
       font-size: variables.$fz-s;
       margin-top: 4px;
+      position: absolute;
+      right: 10px;
+      top: 34px;
+      font-weight: bold;
+    }
+
+    .input--error {
+      border: 1px solid variables.$error;
+    }
+
+    .input--column p {
+      right: 60px;
     }
 
     .form-group {
