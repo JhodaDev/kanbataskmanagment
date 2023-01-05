@@ -2,11 +2,13 @@ export const modal = (set, get) => {
   return {
     active: '',
     show: false,
+    data: {},
     toggle: (idModal) => {
+      const active = !get().modal.show ? idModal : ''
       set((state) => ({
         modal: {
           ...state.modal,
-          active: idModal,
+          active,
           show: !state.modal.show
         }
       }))
@@ -16,7 +18,6 @@ export const modal = (set, get) => {
       const active = get().active
       console.log(active)
     },
-    data: {},
     setData: (data) => {
       set((state) => ({
         modal: {
