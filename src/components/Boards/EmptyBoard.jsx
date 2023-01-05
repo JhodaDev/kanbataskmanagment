@@ -9,7 +9,7 @@ export const EmptyBoard = () => {
         <p>This board is empty. Create a new column to get started.</p>
         <button
           className="btn-primary"
-          onClick={(e) => handleToggle(e, 'edit-board')}
+          onClick={(e) => handleToggle('edit-board')}
         >
           + Add New Column
         </button>
