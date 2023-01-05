@@ -1,17 +1,24 @@
 import React from 'react'
 import { FieldArray, FormikProvider, useFormik } from 'formik'
 import * as yup from 'yup'
+import useStore from '../../../store/store'
+import { useLocalStorage } from '../../../hooks/useLocalStorage'
+// import { useModal } from '../../../hooks/useModal'
 
 const validationSchema = yup.object().shape({
-  boardName: yup.string().required('Board name is required'),
+  boardName: yup.string().required('Is required'),
   columns: yup.array().of(
     yup.object().shape({
-      value: yup.string().required('Column name is required')
+      value: yup.string().required('Is required')
     })
   )
 })
 
 export const FormEditBoard = () => {
+  const { board } = useStore((state) => state)
+  const [boards, setBoards] = useLocalStorage('boards', [])
+  // const { handleToggle } = useModal()
+
   const formik = useFormik({
     initialValues: {
       boardName: '',
@@ -25,7 +32,14 @@ export const FormEditBoard = () => {
     validateOnChange: false,
     validationSchema,
     onSubmit: (values) => {
-      console.log(values)
+      const newBoard = {
+        id: Date.now(),
+        name: values.boardName,
+        columns: values.columns
+      }
+      setBoards([...boards, newBoard])
+      board.newBoard(newBoard)
+      // handleToggle('edit-board')
     }
   })
 
@@ -48,6 +62,7 @@ export const FormEditBoard = () => {
             placeholder="e.g. Web Design"
             value={formik.values.boardName}
             onChange={formik.handleChange}
+            className={formik.errors.boardName ? 'input--error' : ''}
           />
           {formik.errors.boardName && (
             <p className="error">{formik.errors.boardName}</p>
@@ -60,12 +75,23 @@ export const FormEditBoard = () => {
             render={(arrayHelpers) => (
               <>
                 {formik.values.columns.map((column, index) => (
-                  <div className="input-column" key={index}>
+                  <div
+                    className={`input-column ${
+                      formik.values.columns.length > 1 ? 'input--column' : ''
+                    }`}
+                    key={index}
+                  >
                     <input
                       type="text"
                       name={formik.values.columns[index].name}
                       placeholder="e.g. To Do"
                       value={formik.values.columns[index].value}
+                      className={`${
+                        formik.errors.columns &&
+                        formik.errors.columns[index]?.value
+                          ? 'input--error'
+                          : ''
+                      } `}
                       onChange={(e) =>
                         formik.setFieldValue(
                           `columns[${index}].value`,
